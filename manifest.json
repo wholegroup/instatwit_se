@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "InstaTwit SE",
+  "version": "1.0",
+  "description": "See Instagram photos and videos right inside Twitter.com's status cards",
+  "author": "Andrey Rychkov",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://twitter.com/*"
+      ],
+      "css": [
+        "instatwit_se.css"
+      ],
+      "js": [
+        "jquery-3.1.1.slim.min.js",
+        "instatwit_se.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "scripts": [
+      "bg.js"
+    ],
+    "persistent": true
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://twitter.com/*",
+    "https://www.instagram.com/*"
+  ]
+}

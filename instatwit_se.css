@@ -1,0 +1,38 @@
+.instatwit-se {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 10px 0 0 0;
+}
+
+.js-stream-item .instatwit-se {
+    width: 504px;
+    max-height: 630px;
+}
+
+.permalink-tweet .instatwit-se {
+    width: 560px;
+    max-height: 700px;
+}
+
+.instatwit-se img {
+    display: block;
+    width: 100%;
+}
+
+.instatwit-se video {
+    display: block;
+    width: 100%;
+}
+
+.instatwit-se .video-info {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 2px 5px;
+    margin: 5px 5px;
+    background-color: white;
+    color: black;
+    border-radius: 2px;
+}
