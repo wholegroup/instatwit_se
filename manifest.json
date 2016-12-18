@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "InstaTwit SE",
-  "version": "1.1",
+  "version": "1.2",
   "description": "See Instagram photos and videos right inside Twitter.com's status cards",
   "author": "Andrey Rychkov",
   "icons": {
@@ -35,6 +35,6 @@
     "webRequest",
     "webRequestBlocking",
     "https://twitter.com/*",
-    "https://www.instagram.com/*"
+    "https://*.instagram.com/*"
   ]
 }
