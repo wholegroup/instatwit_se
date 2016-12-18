@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "InstaTwit SE",
-  "version": "1.0",
+  "version": "1.1",
   "description": "See Instagram photos and videos right inside Twitter.com's status cards",
   "author": "Andrey Rychkov",
   "icons": {

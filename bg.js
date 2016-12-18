@@ -6,6 +6,8 @@ chrome.webRequest.onHeadersReceived.addListener(
                 "img-src", "img-src https://scontent.cdninstagram.com");
             details.responseHeaders[idCSPHeader].value = details.responseHeaders[idCSPHeader].value.replace(
                 "media-src", "media-src https://scontent.cdninstagram.com");
+            details.responseHeaders[idCSPHeader].value = details.responseHeaders[idCSPHeader].value.replace(
+                "connect-src", "connect-src https://www.instagram.com");
         }
         return {
             responseHeaders: details.responseHeaders,
