@@ -55,7 +55,9 @@
                 .then(directUrl => {
                     const html = generateHtml(instaUrl, directUrl);
                     const injectedCode = $("<div/>").html(html).addClass('instatwit-se');
-                    tweet.find('.stream-item-footer').before(injectedCode);
+                    const footer = tweet.find('.stream-item-footer');
+
+                    footer.before(injectedCode);
                     if (directUrl.videoUrl) {
                         tweet.find('video').click((event) => {
                             event.target.paused ? event.target.play() : event.target.pause();
@@ -72,8 +74,8 @@
     // list
     const doc = $("#doc");
     new MutationObserver(() => {
-        doc.find('.js-stream-item').each((n, value) => {
-            addInsta($(value));
+        doc.find('.js-stream-item[data-item-type=tweet]').each((n, value) => {
+            addInsta($(value).find('div.tweet').first());
         });
     }).observe(doc[0], {
         childList: true,
