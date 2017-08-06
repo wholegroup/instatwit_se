@@ -1,31 +1,49 @@
 (function () {
-    const extractDirectUrl = (body) => {
+    const resolve = (path, obj) => {
+        return path.split('.').reduce(function (prev, curr) {
+            return prev ? prev[curr] : undefined
+        }, obj || self)
+    }
+
+    const extractInstaInfo = (body) => {
+        // image
         const reImage = /(?:meta property="og:image" content="(.+)")/imu;
         const imageMatches = body.match(reImage);
-        if (!imageMatches) {
+        const imageUrl = imageMatches ? imageMatches[1] : null;
+        if (!imageUrl) {
             throw Error(`No direct url`)
         }
+
+        // video
         const reVideo = /(?:meta property="og:video:secure_url" content="(.+)")/imu;
         const videoMatches = body.match(reVideo);
-        return {
-            imageUrl: imageMatches[1],
-            videoUrl: videoMatches ? videoMatches[1] : null,
-        };
+        const videoUrl = videoMatches ? videoMatches[1] : null
+
+        // additional data
+        const reSharedData = /(?:window\._sharedData\s=\s(.+?);<\/script>)/imu;
+        const sharedDataMatches = body.match(reSharedData);
+        const sharedData = JSON.parse(sharedDataMatches[1] || "{}");
+        const description = resolve("entry_data.PostPage.0.graphql.shortcode_media.edge_media_to_caption.edges.0."
+            + "node.text", sharedData) || null;
+        const location = resolve("entry_data.PostPage.0.graphql.shortcode_media.location.name", sharedData) || null;
+
+        return {imageUrl, videoUrl, description, location};
     };
 
-    const generateHtml = (instaUrl, directUrl) => {
-        if (directUrl.videoUrl) {
+    const generateHtml = (instaUrl, instaInfo) => {
+        if (instaInfo.videoUrl) {
             return $("<div>").append(
                 $("<video>")
-                    .attr("poster", directUrl.imageUrl)
-                    .attr("preload", "none").attr("src", directUrl.videoUrl)
+                    .attr("playsinline", "")
+                    .attr("poster", instaInfo.imageUrl)
+                    .attr("preload", "none").attr("src", instaInfo.videoUrl)
                     .attr("type", "video/mp4")
             ).append(
                 $("<div>").addClass("video-info").html("click on video to play")
             ).html();
         }
         return `<a href="${encodeURI(instaUrl)}" rel="nofollow" target="_blank">`
-            + `<img src="${encodeURI(directUrl.imageUrl)}"></a>`;
+            + `<img src="${encodeURI(instaInfo.imageUrl)}"></a>`;
     };
 
     const addInsta = (tweet) => {
@@ -44,21 +62,29 @@
 
             fetch(instaUrl)
                 .then(response => {
-                    if (response.status != 200) {
+                    if (response.status !== 200) {
                         throw Error(`${response.url} has returned ${response.status} status code.`);
                     }
-                    return response.text();
+                    return response.text()
                 })
                 .then(body => {
-                    return extractDirectUrl(body);
+                    return extractInstaInfo(body);
                 })
-                .then(directUrl => {
-                    const html = generateHtml(instaUrl, directUrl);
+                .then(instaInfo => {
+                    if (instaInfo.description) {
+                        const tweetText = tweet.find('.tweet-text');
+                        const instaAnchor = tweetText.find('a');
+                        tweetText.text(instaInfo.description
+                            + (instaInfo.location ? ' @ ' + instaInfo.location : '')
+                            + ' '
+                        );
+                        instaAnchor.appendTo(tweetText);
+                    }
+                    const html = generateHtml(instaUrl, instaInfo);
                     const injectedCode = $("<div/>").html(html).addClass('instatwit-se');
                     const footer = tweet.find('.stream-item-footer');
-
                     footer.before(injectedCode);
-                    if (directUrl.videoUrl) {
+                    if (instaInfo.videoUrl) {
                         tweet.find('video').click((event) => {
                             event.target.paused ? event.target.play() : event.target.pause();
                             return false;
