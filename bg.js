@@ -3,9 +3,9 @@ chrome.webRequest.onHeadersReceived.addListener(
         let idCSPHeader = details.responseHeaders.findIndex(header => /content-security-policy/i.test(header.name));
         if (-1 != idCSPHeader) {
             details.responseHeaders[idCSPHeader].value = details.responseHeaders[idCSPHeader].value.replace(
-                "img-src", "img-src https://scontent.cdninstagram.com");
+                "img-src", "img-src https://*.cdninstagram.com");
             details.responseHeaders[idCSPHeader].value = details.responseHeaders[idCSPHeader].value.replace(
-                "media-src", "media-src https://scontent.cdninstagram.com");
+                "media-src", "media-src https://*.cdninstagram.com");
             details.responseHeaders[idCSPHeader].value = details.responseHeaders[idCSPHeader].value.replace(
                 "connect-src", "connect-src https://www.instagram.com");
         }
