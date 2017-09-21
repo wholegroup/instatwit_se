@@ -1,5 +1,5 @@
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/iegaigpohjiomadeaieoabbaephagnik.svg)]()
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/iegaigpohjiomadeaieoabbaephagnik.svg)]()
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/iegaigpohjiomadeaieoabbaephagnik.svg)](https://chrome.google.com/webstore/detail/instatwit-se-instagram-in/iegaigpohjiomadeaieoabbaephagnik)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/iegaigpohjiomadeaieoabbaephagnik.svg)](https://chrome.google.com/webstore/detail/instatwit-se-instagram-in/iegaigpohjiomadeaieoabbaephagnik)
 
 
 # InstaTweet SE
