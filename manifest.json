@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "InstaTwit SE - Instagram inside Twitter cards",
-  "short_name": "InstaTwit SE",
-  "version": "1.6",
-  "description": "See Instagram photos and videos right inside Twitter.com's status cards",
+  "name": "Hipsta - opens image links inside posts",
+  "short_name": "Hipsta",
+  "version": "1.7",
+  "description": "This add-on automatically shows Instagram™.com's images and videos right inside Twitter™.com's status cards.",
   "author": "Andrey Rychkov",
   "icons": {
     "16": "icon16_3_opt.png",
